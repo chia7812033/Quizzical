@@ -1,23 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { nanoid } from 'nanoid'
+import Start from "./components/Start";
+import Question from "./components/Question";
 
 function App() {
+
+  const [questions, setQuestions] = React.useState([])
+
+  const questionsElements = questions.map(q => <Question key={q.id} question={q} />)
+
+  const [start, setStart] = React.useState(false)
+
+  let initialRender = true;
+  React.useEffect(() => async () => {
+    const response = await fetch("https://opentdb.com/api.php?amount=5&difficulty=easy&type=multiple")
+    const fetchQuestions = await response.json()
+    const newQuestions = await fetchQuestions.results.map(q => {
+      return { ...q, answers: [...q.incorrect_answers, q.correct_answer], id: nanoid() }
+    })
+    if (initialRender) {
+      initialRender = false
+    } else {
+      setQuestions(newQuestions)
+    }
+  }
+    , [start])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {!start && <Start onClick={setStart} />}
+      {start && <div className="questions">{questionsElements}</div>}
     </div>
   );
 }
