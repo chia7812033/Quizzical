@@ -2,7 +2,12 @@ import React from "react";
 
 export default function (props) {
   const answers = props.question.answers
-  const answerElements = answers.map(answer => <div className="q--answer">{answer}</div>)
+  const answerElements = answers.map(answer => {
+    return <div className="q--answer"
+      key={answer.id}
+      onClick={(event) => props.onClick(event, props.question.id, answer.id)}
+    >{answer.text}</div>
+  })
 
   return (
     <div className="q">

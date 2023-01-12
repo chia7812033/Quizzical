@@ -7,7 +7,7 @@ function App() {
 
   const [questions, setQuestions] = React.useState([])
 
-  const questionsElements = questions.map(q => <Question key={q.id} question={q} />)
+  const questionsElements = questions.map(q => <Question key={q.id} question={q} onClick={clickAnswer} />)
 
   const [start, setStart] = React.useState(false)
 
@@ -16,7 +16,10 @@ function App() {
     const response = await fetch("https://opentdb.com/api.php?amount=5&difficulty=easy&type=multiple")
     const fetchQuestions = await response.json()
     const newQuestions = await fetchQuestions.results.map(q => {
-      return { ...q, answers: [...q.incorrect_answers, q.correct_answer], id: nanoid() }
+      return {
+        ...q, answers: [...q.incorrect_answers, q.correct_answer].map(answer =>
+        { return { text: answer, selected: false, id: nanoid() } }), id: nanoid()
+      }
     })
     if (initialRender) {
       initialRender = false
@@ -25,6 +28,10 @@ function App() {
     }
   }
     , [start])
+
+  function clickAnswer(event, quenstionId, answerId) {
+    console.log(quenstionId, answerId)
+  }
 
   return (
     <div className="App">
