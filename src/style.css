@@ -47,6 +47,10 @@ hr {
   margin-top: 25px;
 }
 
+.start--btn:active {
+  box-shadow: 1px 1px 2px black;
+}
+
 .questions {
   padding: 50px 80px;
 }
@@ -93,7 +97,7 @@ hr {
   border: none;
 }
 
-.check-btn:hover {
+.check-btn:active {
   border: solid black 2px;
 }
 

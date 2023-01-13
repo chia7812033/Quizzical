@@ -104,7 +104,11 @@ function App() {
           }
         }
         else {
-          checkedAnswer.push({ ...q.answers[j] })
+          if (q.answers[j].text === correct_answer) {
+            checkedAnswer.push({ ...q.answers[j], correct: false, selected: true })
+          } else {
+            checkedAnswer.push({ ...q.answers[j] })
+          }
         }
       }
       checkedQuestion.push({ ...q, answers: checkedAnswer })
