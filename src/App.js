@@ -105,7 +105,7 @@ function App() {
         }
         else {
           if (q.answers[j].text === correct_answer) {
-            checkedAnswer.push({ ...q.answers[j], correct: false, selected: true })
+            checkedAnswer.push({ ...q.answers[j], correct: true, selected: true })
           } else {
             checkedAnswer.push({ ...q.answers[j] })
           }
