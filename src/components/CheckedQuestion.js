@@ -1,18 +1,23 @@
 import React from "react";
 
-export default function Question(props) {
+export default function CheckedQuestion(props) {
 
-  const style = {
-    backgroundColor: "#D6DBF5",
+  const correct_style = {
+    backgroundColor: "#94D7A2",
     border: "none"
+  }
+
+  const incorrect_style = {
+    backgroundColor: "#F8BCBC",
+    border: "none",
+    opacity: "0.5"
   }
 
   const answers = props.question.answers
   const answerElements = answers.map(answer => {
     return <div className="q--answer"
       key={answer.id}
-      onClick={(event) => props.onClick(event, props.question.id, answer.id)}
-      style={answer.selected ? style : {}}
+      style={answer.selected ? answer.correct ? correct_style : incorrect_style : {opacity: "0.5"}}
     >{answer.text}</div>
   })
 
