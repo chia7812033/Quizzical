@@ -17,8 +17,9 @@ function App() {
     const fetchQuestions = await response.json()
     const newQuestions = await fetchQuestions.results.map(q => {
       return {
-        ...q, answers: [...q.incorrect_answers, q.correct_answer].map(answer =>
-        { return { text: answer, selected: false, id: nanoid() } }), id: nanoid()
+        ...q, answers: [...q.incorrect_answers, q.correct_answer].map(answer => {
+          return { text: answer, selected: false, id: nanoid() }
+        }), id: nanoid()
       }
     })
     if (initialRender) {
@@ -30,13 +31,30 @@ function App() {
     , [start])
 
   function clickAnswer(event, quenstionId, answerId) {
-    console.log(quenstionId, answerId)
+    setQuestions(prevState => prevState.map(q => {
+      return q.id === quenstionId ?
+        {
+          ...q, answers: q.answers.map(answer => {
+            return answer.id === answerId ?
+              { ...answer, selected: !answer.selected } :
+              { ...answer, selected: false }
+          })
+        } :
+        q
+    }))
   }
 
   return (
     <div className="App">
       {!start && <Start onClick={setStart} />}
-      {start && <div className="questions">{questionsElements}</div>}
+      {start &&
+        <div className="q-page">
+          <div className="questions">
+            {questionsElements}
+          </div>
+          <button className="check-btn">Check answer</button>
+        </div>
+      }
     </div>
   );
 }

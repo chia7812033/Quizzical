@@ -13,6 +13,7 @@ hr {
 
 .App {
   background-color: #F5F7FB;
+  min-height: 100vh;
 }
 
 .start {
@@ -47,12 +48,18 @@ hr {
 }
 
 .questions {
-  padding: 80px;
+  padding: 50px 80px;
 }
 
 .q {
   font-family: Karla;
   font-weight: 700;
+}
+
+.q-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .q--title {
@@ -69,11 +76,19 @@ hr {
 .q--answer {
   border: 1px solid #4D5B9E;
   border-radius: 8px;
-  height: 28px;
   min-width: 72px;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0px 12px;
+  padding: 4px 12px;
   cursor: pointer;
+}
+
+.check-btn {
+  background-color: #4D5B9E;
+  border-radius: 10px;
+  font-size: 16px;
+  color: #F5F7FB;
+  padding: 10px 22px;
+  border: none;
 }
